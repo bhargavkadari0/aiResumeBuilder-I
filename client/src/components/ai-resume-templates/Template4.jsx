@@ -8,6 +8,8 @@
  import { jsPDF } from "jspdf";
  import html2canvas from "html2canvas";
  import { motion } from "framer-motion";
+ import Sidebar from "../Sidebar/Sidebar";
+import Navbar from "../Navbar/Navbar";
  
  // Add global styles for extra small text
  const globalStyles = `
@@ -21,194 +23,195 @@
    }
  `;
  
- const Sidebar = React.memo(
-   ({
-     setActiveSection,
-     handleAIEnhancement,
-     handleDownload,
-     handleShare,
-     branding,
-     handleBrandingToggle,
-     handleUploadResume,
-     handleColorPicker,
-     handleSaveResume,
-   }) => {
-     return (
-       <>
-         {/* Mobile/Tablet Horizontal Toolbar */}
-         <div className="w-full bg-white text-gray-800 p-3 sm:p-4 shadow-lg border-b border-gray-200 block lg:hidden">
-           <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
-             <button
-               className="w-12 h-12 sm:w-14 sm:h-14 bg-blue-500 text-white rounded-full p-2 shadow-lg flex items-center justify-center"
-               onClick={() => setActiveSection("rearrange")}
-               title="Rearrange"
-             >
-               <span className="text-xl sm:text-2xl">↕️</span>
-             </button>
+//  const Sidebar = React.memo(
+//    ({
+//      setActiveSection,
+//      handleAIEnhancement,
+//      handleDownload,
+//      handleShare,
+//      branding,
+//      handleBrandingToggle,
+//      handleUploadResume,
+//      handleColorPicker,
+//      handleSaveResume,
+//    }) => {
+//      return (
+//        <>
+       
+//          {/* Mobile/Tablet Horizontal Toolbar */}
+//          <div className="w-full bg-white text-gray-800 p-3 sm:p-4 shadow-lg border-b border-gray-200 block lg:hidden">
+//            <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+//              <button
+//                className="w-12 h-12 sm:w-14 sm:h-14 bg-blue-500 text-white rounded-full p-2 shadow-lg flex items-center justify-center"
+//                onClick={() => setActiveSection("rearrange")}
+//                title="Rearrange"
+//              >
+//                <span className="text-xl sm:text-2xl">↕️</span>
+//              </button>
  
-             <button
-               className="w-12 h-12 sm:w-14 sm:h-14 bg-red-500 text-white rounded-full p-2 shadow-lg flex items-center justify-center"
-               onClick={handleAIEnhancement}
-               data-ai-button="true"
-               title="AI Assistant"
-             >
-               <span className="text-xl sm:text-2xl">🤖</span>
-             </button>
+//              <button
+//                className="w-12 h-12 sm:w-14 sm:h-14 bg-red-500 text-white rounded-full p-2 shadow-lg flex items-center justify-center"
+//                onClick={handleAIEnhancement}
+//                data-ai-button="true"
+//                title="AI Assistant"
+//              >
+//                <span className="text-xl sm:text-2xl">🤖</span>
+//              </button>
  
-             <button
-               className="w-12 h-12 sm:w-14 sm:h-14 bg-purple-500 text-white rounded-full p-2 shadow-lg flex items-center justify-center"
-               onClick={handleColorPicker}
-               title="Color"
-             >
-               <span className="text-xl sm:text-2xl">🎨</span>
-             </button>
+//              <button
+//                className="w-12 h-12 sm:w-14 sm:h-14 bg-purple-500 text-white rounded-full p-2 shadow-lg flex items-center justify-center"
+//                onClick={handleColorPicker}
+//                title="Color"
+//              >
+//                <span className="text-xl sm:text-2xl">🎨</span>
+//              </button>
  
-             <button
-               className="w-12 h-12 sm:w-14 sm:h-14 bg-indigo-500 text-white rounded-full p-2 shadow-lg flex items-center justify-center"
-               onClick={handleSaveResume}
-               title="Save Resume"
-             >
-               <span className="text-xl sm:text-2xl">💾</span>
-             </button>
+//              <button
+//                className="w-12 h-12 sm:w-14 sm:h-14 bg-indigo-500 text-white rounded-full p-2 shadow-lg flex items-center justify-center"
+//                onClick={handleSaveResume}
+//                title="Save Resume"
+//              >
+//                <span className="text-xl sm:text-2xl">💾</span>
+//              </button>
  
-             <button
-               className="w-12 h-12 sm:w-14 sm:h-14 bg-yellow-500 text-white rounded-full p-2 shadow-lg flex items-center justify-center"
-               onClick={handleDownload}
-               title="Download"
-             >
-               <span className="text-xl sm:text-2xl">⬇️</span>
-             </button>
+//              <button
+//                className="w-12 h-12 sm:w-14 sm:h-14 bg-yellow-500 text-white rounded-full p-2 shadow-lg flex items-center justify-center"
+//                onClick={handleDownload}
+//                title="Download"
+//              >
+//                <span className="text-xl sm:text-2xl">⬇️</span>
+//              </button>
  
-             <button
-               className="w-12 h-12 sm:w-14 sm:h-14 bg-green-500 text-white rounded-full p-2 shadow-lg flex items-center justify-center"
-               onClick={handleShare}
-               title="Share"
-             >
-               <span className="text-xl sm:text-2xl">🔗</span>
-             </button>
+//              <button
+//                className="w-12 h-12 sm:w-14 sm:h-14 bg-green-500 text-white rounded-full p-2 shadow-lg flex items-center justify-center"
+//                onClick={handleShare}
+//                title="Share"
+//              >
+//                <span className="text-xl sm:text-2xl">🔗</span>
+//              </button>
  
-             <div className="flex items-center ml-2 sm:ml-4">
-               <label className="relative inline-flex items-center cursor-pointer">
-                 <input
-                   type="checkbox"
-                   checked={branding}
-                   onChange={handleBrandingToggle}
-                   className="sr-only"
-                 />
-                 <div className="w-10 h-5 sm:w-12 sm:h-6 bg-gray-300 rounded-full relative transition-all duration-300">
-                   <div
-                     className="absolute w-4 h-4 sm:w-5 sm:h-5 bg-gray-600 rounded-full left-0.5 top-0.5 transition-transform duration-300"
-                     style={{
-                       transform: branding ? "translateX(20px)" : "translateX(0)",
-                     }}
-                   />
-                 </div>
-               </label>
-             </div>
+//              <div className="flex items-center ml-2 sm:ml-4">
+//                <label className="relative inline-flex items-center cursor-pointer">
+//                  <input
+//                    type="checkbox"
+//                    checked={branding}
+//                    onChange={handleBrandingToggle}
+//                    className="sr-only"
+//                  />
+//                  <div className="w-10 h-5 sm:w-12 sm:h-6 bg-gray-300 rounded-full relative transition-all duration-300">
+//                    <div
+//                      className="absolute w-4 h-4 sm:w-5 sm:h-5 bg-gray-600 rounded-full left-0.5 top-0.5 transition-transform duration-300"
+//                      style={{
+//                        transform: branding ? "translateX(20px)" : "translateX(0)",
+//                      }}
+//                    />
+//                  </div>
+//                </label>
+//              </div>
  
-             <button
-               className="w-12 h-12 sm:w-14 sm:h-14 bg-purple-500 text-white rounded-full p-2 shadow-lg flex items-center justify-center"
-               onClick={handleUploadResume}
-               title="Upload Resume"
-             >
-               <span className="text-xl sm:text-2xl">⬆️</span>
-             </button>
-           </div>
-         </div>
+//              <button
+//                className="w-12 h-12 sm:w-14 sm:h-14 bg-purple-500 text-white rounded-full p-2 shadow-lg flex items-center justify-center"
+//                onClick={handleUploadResume}
+//                title="Upload Resume"
+//              >
+//                <span className="text-xl sm:text-2xl">⬆️</span>
+//              </button>
+//            </div>
+//          </div>
  
-         {/* Desktop Vertical Sidebar */}
-         <div className="w-72 bg-white text-gray-800 p-6 rounded-r-3xl shadow-2xl border-r border-gray-200 hidden lg:flex lg:flex-col">
-           <div className="w-full flex flex-col space-y-6 z-10">
-             <h3 className="text-2xl font-bold mb-6 text-gray-800">
-               Resume Tools
-             </h3>
+//          {/* Desktop Vertical Sidebar */}
+//          <div className="w-72 bg-white text-gray-800 p-6 rounded-r-3xl shadow-2xl border-r border-gray-200 hidden lg:flex lg:flex-col">
+//            <div className="w-full flex flex-col space-y-6 z-10">
+//              <h3 className="text-2xl font-bold mb-6 text-gray-800">
+//                Resume Tools
+//              </h3>
  
-             <button
-               className="w-full bg-blue-500 text-white rounded-full p-3 shadow-lg flex items-center justify-start space-x-2"
-               onClick={() => setActiveSection("rearrange")}
-             >
-               <span className="text-lg">↕️</span>
-               <span>Rearrange</span>
-             </button>
+//              <button
+//                className="w-full bg-blue-500 text-white rounded-full p-3 shadow-lg flex items-center justify-start space-x-2"
+//                onClick={() => setActiveSection("rearrange")}
+//              >
+//                <span className="text-lg">↕️</span>
+//                <span>Rearrange</span>
+//              </button>
  
-             <button
-               className="w-full bg-red-500 text-white rounded-full p-3 shadow-lg flex items-center justify-start space-x-2"
-               onClick={handleAIEnhancement}
-               data-ai-button="true"
-             >
-               <span className="text-lg">🤖</span>
-               <span>AI Assistant</span>
-             </button>
+//              <button
+//                className="w-full bg-red-500 text-white rounded-full p-3 shadow-lg flex items-center justify-start space-x-2"
+//                onClick={handleAIEnhancement}
+//                data-ai-button="true"
+//              >
+//                <span className="text-lg">🤖</span>
+//                <span>AI Assistant</span>
+//              </button>
  
-             <button
-               className="w-full bg-purple-500 text-white rounded-full p-3 shadow-lg flex items-center justify-start space-x-2"
-               onClick={handleColorPicker}
-             >
-               <span className="text-lg">🎨</span>
-               <span>Color</span>
-             </button>
+//              <button
+//                className="w-full bg-purple-500 text-white rounded-full p-3 shadow-lg flex items-center justify-start space-x-2"
+//                onClick={handleColorPicker}
+//              >
+//                <span className="text-lg">🎨</span>
+//                <span>Color</span>
+//              </button>
  
-             <button
-               className="w-full bg-indigo-500 text-white rounded-full p-3 shadow-lg flex items-center justify-start space-x-2"
-               onClick={handleSaveResume}
-             >
-               <span className="text-lg">💾</span>
-               <span>Save Resume</span>
-             </button>
+//              <button
+//                className="w-full bg-indigo-500 text-white rounded-full p-3 shadow-lg flex items-center justify-start space-x-2"
+//                onClick={handleSaveResume}
+//              >
+//                <span className="text-lg">💾</span>
+//                <span>Save Resume</span>
+//              </button>
  
-             <hr className="border-gray-300 my-2 w-full" />
+//              <hr className="border-gray-300 my-2 w-full" />
  
-             <button
-               className="w-full bg-yellow-500 text-white rounded-full p-3 shadow-lg flex items-center justify-start space-x-2"
-               onClick={handleDownload}
-             >
-               <span className="text-lg">⬇️</span>
-               <span>Download</span>
-             </button>
+//              <button
+//                className="w-full bg-yellow-500 text-white rounded-full p-3 shadow-lg flex items-center justify-start space-x-2"
+//                onClick={handleDownload}
+//              >
+//                <span className="text-lg">⬇️</span>
+//                <span>Download</span>
+//              </button>
  
-             <button
-               className="w-full bg-green-500 text-white rounded-full p-3 shadow-lg flex items-center justify-start space-x-2"
-               onClick={handleShare}
-             >
-               <span className="text-lg">🔗</span>
-               <span>Share</span>
-             </button>
+//              <button
+//                className="w-full bg-green-500 text-white rounded-full p-3 shadow-lg flex items-center justify-start space-x-2"
+//                onClick={handleShare}
+//              >
+//                <span className="text-lg">🔗</span>
+//                <span>Share</span>
+//              </button>
  
-             <div className="flex items-center justify-between mt-2 w-full">
-               <span className="text-gray-800 font-medium">
-                 Branding
-               </span>
-               <label className="relative inline-flex items-center cursor-pointer">
-                 <input
-                   type="checkbox"
-                   checked={branding}
-                   onChange={handleBrandingToggle}
-                   className="sr-only"
-                 />
-                 <div className="w-12 h-6 bg-gray-300 rounded-full relative transition-all duration-300">
-                   <div
-                     className="absolute w-5 h-5 bg-gray-600 rounded-full left-0.5 top-0.5 transition-transform duration-300"
-                     style={{
-                       transform: branding ? "translateX(24px)" : "translateX(0)",
-                     }}
-                   />
-                 </div>
-               </label>
-             </div>
+//              <div className="flex items-center justify-between mt-2 w-full">
+//                <span className="text-gray-800 font-medium">
+//                  Branding
+//                </span>
+//                <label className="relative inline-flex items-center cursor-pointer">
+//                  <input
+//                    type="checkbox"
+//                    checked={branding}
+//                    onChange={handleBrandingToggle}
+//                    className="sr-only"
+//                  />
+//                  <div className="w-12 h-6 bg-gray-300 rounded-full relative transition-all duration-300">
+//                    <div
+//                      className="absolute w-5 h-5 bg-gray-600 rounded-full left-0.5 top-0.5 transition-transform duration-300"
+//                      style={{
+//                        transform: branding ? "translateX(24px)" : "translateX(0)",
+//                      }}
+//                    />
+//                  </div>
+//                </label>
+//              </div>
  
-             <button
-               className="w-full bg-purple-500 text-white rounded-full p-3 shadow-lg flex items-center justify-start space-x-2"
-               onClick={handleUploadResume}
-             >
-               <span className="text-lg">⬆️</span>
-               <span>Upload Resume</span>
-             </button>
-           </div>
-         </div>
-       </>
-     );
-   },
- );
+//              <button
+//                className="w-full bg-purple-500 text-white rounded-full p-3 shadow-lg flex items-center justify-start space-x-2"
+//                onClick={handleUploadResume}
+//              >
+//                <span className="text-lg">⬆️</span>
+//                <span>Upload Resume</span>
+//              </button>
+//            </div>
+//          </div>
+//        </>
+//      );
+//    },
+//  );
  
  const ResumeEditor = () => {
    const [resumeData, setResumeData] = useState({
@@ -866,8 +869,11 @@
    );
  
    return (
+      <>
+      <Navbar/>
+
      <div className="flex flex-col lg:flex-row min-h-screen bg-gray-100">
-       <Sidebar
+       {/* <Sidebar
          setActiveSection={setActiveSection}
          handleAIEnhancement={handleAIEnhancement}
          handleDownload={handleDownload}
@@ -878,7 +884,8 @@
          handleColorPicker={handleColorPicker}
          handleSaveResume={handleSaveResume}
        />
- 
+  */}
+        <Sidebar/>
        <div className="flex-1 p-2 sm:p-4 lg:p-6 overflow-auto flex justify-center">
          <div
            className="bg-white shadow-md w-full lg:w-auto"
@@ -1740,6 +1747,7 @@
          </motion.div>
        )}
      </div>
+      </>
    );
  };
  

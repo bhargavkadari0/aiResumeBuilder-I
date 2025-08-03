@@ -8,7 +8,9 @@ import React, {
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import { motion } from "framer-motion";
-import Template1 from "./Template1";
+import Sidebar from "../Sidebar/Sidebar";
+import Navbar from "../Navbar/Navbar";
+
 
 // Add global styles for extra small text
 const globalStyles = `
@@ -22,110 +24,110 @@ const globalStyles = `
   }
 `;
 
-const Sidebar = React.memo(
-  ({
-    setActiveSection,
-    handleAIEnhancement,
-    handleDownload,
-    handleShare,
-    branding,
-    handleBrandingToggle,
-    handleUploadResume,
-    handleColorPicker,
-    handleSaveResume,
-  }) => {
-    return (
-      <div className="lg:w-72 bg-white text-gray-800 p-2 lg:p-6 shadow-2xl border-b lg:border-r lg:border-b-0 border-gray-200 flex lg:flex-col items-center lg:items-start lg:rounded-r-3xl">
-        <div className="w-full flex lg:flex-col items-center lg:items-start space-x-2 lg:space-x-0 lg:space-y-6 z-10 overflow-x-auto lg:overflow-x-visible">
-          <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-gray-800 hidden lg:block">
-            Resume Tools
-          </h3>
+// const Sidebar = React.memo(
+//   ({
+//     setActiveSection,
+//     handleAIEnhancement,
+//     handleDownload,
+//     handleShare,
+//     branding,
+//     handleBrandingToggle,
+//     handleUploadResume,
+//     handleColorPicker,
+//     handleSaveResume,
+//   }) => {
+//     return (
+//       <div className="lg:w-72 bg-white text-gray-800 p-2 lg:p-6 shadow-2xl border-b lg:border-r lg:border-b-0 border-gray-200 flex lg:flex-col items-center lg:items-start lg:rounded-r-3xl">
+//         <div className="w-full flex lg:flex-col items-center lg:items-start space-x-2 lg:space-x-0 lg:space-y-6 z-10 overflow-x-auto lg:overflow-x-visible">
+//           <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-gray-800 hidden lg:block">
+//             Resume Tools
+//           </h3>
 
-          <button
-            className="w-12 h-12 lg:w-full lg:h-auto bg-blue-500 text-white rounded-full lg:rounded-lg p-2 lg:p-3 shadow-lg flex items-center justify-center lg:flex-row lg:justify-start lg:space-x-2 flex-shrink-0"
-            onClick={() => setActiveSection("rearrange")}
-          >
-            <span className="text-lg lg:text-base">↕️</span>
-            <span className="hidden lg:inline">Rearrange</span>
-          </button>
+//           <button
+//             className="w-12 h-12 lg:w-full lg:h-auto bg-blue-500 text-white rounded-full lg:rounded-lg p-2 lg:p-3 shadow-lg flex items-center justify-center lg:flex-row lg:justify-start lg:space-x-2 flex-shrink-0"
+//             onClick={() => setActiveSection("rearrange")}
+//           >
+//             <span className="text-lg lg:text-base">↕️</span>
+//             <span className="hidden lg:inline">Rearrange</span>
+//           </button>
 
-          <button
-            className="w-12 h-12 lg:w-full lg:h-auto bg-red-500 text-white rounded-full lg:rounded-lg p-2 lg:p-3 shadow-lg flex items-center justify-center lg:flex-row lg:justify-start lg:space-x-2 flex-shrink-0"
-            onClick={handleAIEnhancement}
-            data-ai-button="true"
-          >
-            <span className="text-lg lg:text-base">🤖</span>
-            <span className="hidden lg:inline">AI Assistant</span>
-          </button>
+//           <button
+//             className="w-12 h-12 lg:w-full lg:h-auto bg-red-500 text-white rounded-full lg:rounded-lg p-2 lg:p-3 shadow-lg flex items-center justify-center lg:flex-row lg:justify-start lg:space-x-2 flex-shrink-0"
+//             onClick={handleAIEnhancement}
+//             data-ai-button="true"
+//           >
+//             <span className="text-lg lg:text-base">🤖</span>
+//             <span className="hidden lg:inline">AI Assistant</span>
+//           </button>
 
-          <button
-            className="w-12 h-12 lg:w-full lg:h-auto bg-purple-500 text-white rounded-full lg:rounded-lg p-2 lg:p-3 shadow-lg flex items-center justify-center lg:flex-row lg:justify-start lg:space-x-2 flex-shrink-0"
-            onClick={handleColorPicker}
-          >
-            <span className="text-lg lg:text-base">🎨</span>
-            <span className="hidden lg:inline">Color</span>
-          </button>
+//           <button
+//             className="w-12 h-12 lg:w-full lg:h-auto bg-purple-500 text-white rounded-full lg:rounded-lg p-2 lg:p-3 shadow-lg flex items-center justify-center lg:flex-row lg:justify-start lg:space-x-2 flex-shrink-0"
+//             onClick={handleColorPicker}
+//           >
+//             <span className="text-lg lg:text-base">🎨</span>
+//             <span className="hidden lg:inline">Color</span>
+//           </button>
 
-          <button
-            className="w-12 h-12 lg:w-full lg:h-auto bg-indigo-500 text-white rounded-full lg:rounded-lg p-2 lg:p-3 shadow-lg flex items-center justify-center lg:flex-row lg:justify-start lg:space-x-2 flex-shrink-0"
-            onClick={handleSaveResume}
-          >
-            <span className="text-lg lg:text-base">💾</span>
-            <span className="hidden lg:inline">Save Resume</span>
-          </button>
+//           <button
+//             className="w-12 h-12 lg:w-full lg:h-auto bg-indigo-500 text-white rounded-full lg:rounded-lg p-2 lg:p-3 shadow-lg flex items-center justify-center lg:flex-row lg:justify-start lg:space-x-2 flex-shrink-0"
+//             onClick={handleSaveResume}
+//           >
+//             <span className="text-lg lg:text-base">💾</span>
+//             <span className="hidden lg:inline">Save Resume</span>
+//           </button>
 
-          <hr className="border-gray-300 my-2 w-full hidden lg:block" />
+//           <hr className="border-gray-300 my-2 w-full hidden lg:block" />
 
-          <button
-            className="w-12 h-12 lg:w-full lg:h-auto bg-yellow-500 text-white rounded-full lg:rounded-lg p-2 lg:p-3 shadow-lg flex items-center justify-center lg:flex-row lg:justify-start lg:space-x-2 flex-shrink-0"
-            onClick={handleDownload}
-          >
-            <span className="text-lg lg:text-base">⬇️</span>
-            <span className="hidden lg:inline">Download</span>
-          </button>
+//           <button
+//             className="w-12 h-12 lg:w-full lg:h-auto bg-yellow-500 text-white rounded-full lg:rounded-lg p-2 lg:p-3 shadow-lg flex items-center justify-center lg:flex-row lg:justify-start lg:space-x-2 flex-shrink-0"
+//             onClick={handleDownload}
+//           >
+//             <span className="text-lg lg:text-base">⬇️</span>
+//             <span className="hidden lg:inline">Download</span>
+//           </button>
 
-          <button
-            className="w-12 h-12 lg:w-full lg:h-auto bg-green-500 text-white rounded-full lg:rounded-lg p-2 lg:p-3 shadow-lg flex items-center justify-center lg:flex-row lg:justify-start lg:space-x-2 flex-shrink-0"
-            onClick={handleShare}
-          >
-            <span className="text-lg lg:text-base">🔗</span>
-            <span className="hidden lg:inline">Share</span>
-          </button>
+//           <button
+//             className="w-12 h-12 lg:w-full lg:h-auto bg-green-500 text-white rounded-full lg:rounded-lg p-2 lg:p-3 shadow-lg flex items-center justify-center lg:flex-row lg:justify-start lg:space-x-2 flex-shrink-0"
+//             onClick={handleShare}
+//           >
+//             <span className="text-lg lg:text-base">🔗</span>
+//             <span className="hidden lg:inline">Share</span>
+//           </button>
 
-          <button
-            className="w-12 h-12 lg:w-full lg:h-auto bg-purple-500 text-white rounded-full lg:rounded-lg p-2 lg:p-3 shadow-lg flex items-center justify-center lg:flex-row lg:justify-start lg:space-x-2 flex-shrink-0"
-            onClick={handleUploadResume}
-          >
-            <span className="text-lg lg:text-base">⬆️</span>
-            <span className="hidden lg:inline">Upload Resume</span>
-          </button>
+//           <button
+//             className="w-12 h-12 lg:w-full lg:h-auto bg-purple-500 text-white rounded-full lg:rounded-lg p-2 lg:p-3 shadow-lg flex items-center justify-center lg:flex-row lg:justify-start lg:space-x-2 flex-shrink-0"
+//             onClick={handleUploadResume}
+//           >
+//             <span className="text-lg lg:text-base">⬆️</span>
+//             <span className="hidden lg:inline">Upload Resume</span>
+//           </button>
 
-          <div className="flex items-center justify-between mt-2 w-full lg:w-auto">
-            <span className="text-gray-800 font-medium hidden lg:block">
-              Branding
-            </span>
-            <label className="relative inline-flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                checked={branding}
-                onChange={handleBrandingToggle}
-                className="sr-only"
-              />
-              <div className="w-8 h-4 lg:w-12 lg:h-6 bg-gray-300 rounded-full relative transition-all duration-300">
-                <div
-                  className="absolute w-3 h-3 lg:w-5 lg:h-5 bg-gray-600 rounded-full left-0.5 top-0.5 transition-transform duration-300"
-                  style={{
-                    transform: branding ? "translateX(16px)" : "translateX(0)",
-                  }}
-                />
-              </div>
-            </label>
-          </div>
-        </div>
-      </div>
-    );
-  },
-);
+//           <div className="flex items-center justify-between mt-2 w-full lg:w-auto">
+//             <span className="text-gray-800 font-medium hidden lg:block">
+//               Branding
+//             </span>
+//             <label className="relative inline-flex items-center cursor-pointer">
+//               <input
+//                 type="checkbox"
+//                 checked={branding}
+//                 onChange={handleBrandingToggle}
+//                 className="sr-only"
+//               />
+//               <div className="w-8 h-4 lg:w-12 lg:h-6 bg-gray-300 rounded-full relative transition-all duration-300">
+//                 <div
+//                   className="absolute w-3 h-3 lg:w-5 lg:h-5 bg-gray-600 rounded-full left-0.5 top-0.5 transition-transform duration-300"
+//                   style={{
+//                     transform: branding ? "translateX(16px)" : "translateX(0)",
+//                   }}
+//                 />
+//               </div>
+//             </label>
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   },
+// );
 
 const Template3 = () => {
   const [resumeData, setResumeData] = useState({
@@ -761,8 +763,12 @@ const Template3 = () => {
   );
 
   return (
+    <>
+    <Navbar/>
     <div className="flex flex-col lg:flex-row min-h-screen bg-gray-100">
-      <Sidebar
+      
+      <Sidebar/>
+      {/* <Sidebar
         setActiveSection={setActiveSection}
         handleAIEnhancement={handleAIEnhancement}
         handleDownload={handleDownload}
@@ -772,7 +778,7 @@ const Template3 = () => {
         handleUploadResume={handleUploadResume}
         handleColorPicker={handleColorPicker}
         handleSaveResume={handleSaveResume}
-      />
+      /> */}
 
       <div className="flex-1 p-2 md:p-6 overflow-auto flex justify-center">
         <div
@@ -1570,6 +1576,7 @@ const Template3 = () => {
         </motion.div>
       )}
     </div>
+    </>
   );
 };
 
